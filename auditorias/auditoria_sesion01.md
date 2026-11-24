@@ -72,35 +72,33 @@ de complejidad. No cambies la interfaz original.
 Archivo: `ia_sesion01_c.c`
 
 ```c
-#include "api_sesion01.h"
-#include <stddef.h>
-#include <string.h>
+# include "api_sesion01.h"
+# include <stddef.h>
 
-void invertir(char *s)
-{
-    size_t inicio;
-    size_t fin;
-    char temporal;
-
+void invertir(char *s) {
+    // 1. Guardián contra puntero nulo (termina sin error)
     if (s == NULL) {
         return;
     }
 
-    fin = strlen(s);
+    // 2. Inicializar puntero de inicio y buscar el final de la cadena
+    char *inicio = s;
+    char *fin = s;
 
-    if (fin == 0) {
-        return;
+    while (*fin != '\0') {
+        fin++;
     }
 
-    fin--;
+    // Retroceder para apuntar al último carácter válido (no al '\0')
+    if (fin > inicio) {
+        fin--;
+    }
 
-    inicio = 0;
-
+    // 3. Intercambio in-place utilizando dos punteros y un carácter temporal
     while (inicio < fin) {
-        temporal = s[inicio];
-        s[inicio] = s[fin];
-        s[fin] = temporal;
-
+        char temp = *inicio;
+        *inicio = *fin;
+        *fin = temp;
         inicio++;
         fin--;
     }
