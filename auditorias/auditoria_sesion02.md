@@ -88,21 +88,26 @@ Archivo: `ia_sesion02_c.c`
 ```c
 #include "api_sesion02.h"
 #include <stdlib.h>
-#include <string.h>
 
 NodoToken *crear_nodo(const char *lexema) {
     if (lexema == NULL) {
         return NULL;
     }
 
-    NodoToken *nuevo = malloc(sizeof *nuevo);
+    NodoToken *nuevo = malloc(sizeof(NodoToken));
 
     if (nuevo == NULL) {
         return NULL;
     }
 
-    strncpy(nuevo->lexema, lexema, sizeof nuevo->lexema - 1);
-    nuevo->lexema[sizeof nuevo->lexema - 1] = '\0';
+    size_t i = 0;
+
+    while (lexema[i] != '\0' && i < sizeof(nuevo->lexema) - 1) {
+        nuevo->lexema[i] = lexema[i];
+        i++;
+    }
+
+    nuevo->lexema[i] = '\0';
     nuevo->siguiente = NULL;
 
     return nuevo;
@@ -135,24 +140,20 @@ void agregar_token(NodoToken **cabeza, const char *lexema) {
 
 int contar_tokens(NodoToken *cabeza) {
     int contador = 0;
-    NodoToken *actual = cabeza;
 
-    while (actual != NULL) {
+    while (cabeza != NULL) {
         contador++;
-        actual = actual->siguiente;
+        cabeza = cabeza->siguiente;
     }
 
     return contador;
 }
 
 void liberar_lista(NodoToken *cabeza) {
-    NodoToken *actual = cabeza;
-
-    while (actual != NULL) {
-        NodoToken *siguiente = actual->siguiente;
-
-        free(actual);
-        actual = siguiente;
+    while (cabeza != NULL) {
+        NodoToken *siguiente = cabeza->siguiente;
+        free(cabeza);
+        cabeza = siguiente;
     }
 }
 ```
