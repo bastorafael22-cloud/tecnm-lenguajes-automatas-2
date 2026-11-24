@@ -93,14 +93,17 @@ int escribir_texto(const char *ruta, const char *texto) {
     }
 
     FILE *archivo = fopen(ruta, "w");
+
     if (archivo == NULL) {
         return -1;
     }
 
-    int resultado = fputs(texto, archivo);
-    int error_cierre = fclose(archivo);
+    if (fputs(texto, archivo) == EOF) {
+        fclose(archivo);
+        return -1;
+    }
 
-    if (resultado == EOF || error_cierre == EOF) {
+    if (fclose(archivo) == EOF) {
         return -1;
     }
 
@@ -113,6 +116,7 @@ int contar_lineas(const char *ruta) {
     }
 
     FILE *archivo = fopen(ruta, "r");
+
     if (archivo == NULL) {
         return -1;
     }
@@ -120,13 +124,15 @@ int contar_lineas(const char *ruta) {
     int lineas = 0;
     int caracter;
     int ultimo = '\n';
+    int hubo_caracter = 0;
 
     while ((caracter = fgetc(archivo)) != EOF) {
+        hubo_caracter = 1;
+        ultimo = caracter;
+
         if (caracter == '\n') {
             lineas++;
         }
-
-        ultimo = caracter;
     }
 
     if (ferror(archivo)) {
@@ -134,7 +140,7 @@ int contar_lineas(const char *ruta) {
         return -1;
     }
 
-    if (ultimo != '\n') {
+    if (hubo_caracter && ultimo != '\n') {
         lineas++;
     }
 
@@ -156,11 +162,11 @@ int ejecutar(const char *comando) {
         return -1;
     }
 
-    if (!WIFEXITED(estado)) {
-        return -1;
+    if (WIFEXITED(estado)) {
+        return WEXITSTATUS(estado);
     }
 
-    return WEXITSTATUS(estado);
+    return -1;
 }
 ```
 
