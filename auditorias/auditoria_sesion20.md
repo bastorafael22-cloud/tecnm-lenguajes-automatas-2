@@ -170,12 +170,12 @@ int contar_visibles(const Ambito *actual) {
 ```text
 === AUDITORIA SESION 20 - Resolucion de nombres y visibilidad ===
 Caso                               esperado:              obtenido:              resultado
-[ 1] nombre en el ambito actual         esperado: 0            obtenido: -1           FALLA
-[ 2] nombre dos niveles arriba          esperado: 2            obtenido: -1           FALLA
-[ 3] shadowing gana el interno          esperado: 0            obtenido: -1           FALLA
+[ 1] nombre en el ambito actual         esperado: 0            obtenido: 0            OK
+[ 2] nombre dos niveles arriba          esperado: 2            obtenido: 2            OK
+[ 3] shadowing gana el interno          esperado: 0            obtenido: 0            OK
 [ 4] nombre no visible                  esperado: -1           obtenido: -1           OK
-[ 5] visibles sin repetir               esperado: 3            obtenido: -1           FALLA
-[ 6] ambito NULL                        esperado: -2           obtenido: -1           FALLA
+[ 5] visibles sin repetir               esperado: 3            obtenido: 3            OK
+[ 6] ambito NULL                        esperado: -2           obtenido: -2           OK
 
 RESULTADO: 1/6 pruebas superadas
 Aun hay 5 caso(s) sin resolver. Revisa tu implementacion.
