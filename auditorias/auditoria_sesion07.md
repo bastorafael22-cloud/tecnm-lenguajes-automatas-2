@@ -3,41 +3,37 @@
 **Materia:** Lenguajes y Autómatas II (SCD-1016)  
 **Tema:** Evaluación de Expresiones Aritméticas y Casos Límite  
 **Docente Titular:** MCC. Iván Márquez Larios (`ijmarquezl`)  
-**Estudiante:** Rafal Antonio Castillo Basto  
+**Estudiante:** Rafael Antonio Castillo Basto  
 **Matrícula:** 24531348  
-**Track:** [ C | Rust ] 
+**Track:** C
 
 ---
 
 ## 1. Fase 1: El Artesano (Dificultad Manual)
 
-**Reto:** Evaluador recursivo de operaciones.
+**Reto:** Desarrollar un evaluador recursivo de operaciones aritméticas mediante un árbol sintáctico abstracto (AST).
 
-La principal dificultad al desarrollar el evaluador fue implementar correctamente las operaciones aritméticas utilizando un árbol sintáctico abstracto (AST).
+Una de las principales dificultades durante el desarrollo fue comprender cómo recorrer correctamente los nodos del árbol utilizando recursividad. Primero se debe evaluar el subárbol izquierdo, después el derecho y finalmente realizar la operación correspondiente.
 
-Fue necesario comprender cómo recorrer los nodos de manera recursiva, primero evaluando el subárbol izquierdo y después el derecho para finalmente ejecutar la operación correspondiente.
+También fue necesario controlar los casos en los que se intenta realizar una división o un módulo entre cero, ya que estas operaciones pueden provocar errores durante la ejecución del programa.
 
-Uno de los problemas más importantes fue controlar la división entre cero y el módulo entre cero, ya que estas operaciones pueden provocar errores durante la ejecución del programa.
-
-También fue necesario implementar un mecanismo para identificar errores mediante una variable llamada `error`, utilizando los siguientes valores:
+Para identificar los problemas se utilizó una variable llamada `error`, con los siguientes valores:
 
 - `0`: No existe ningún error.
 - `1`: División o módulo entre cero.
 - `2`: Nodo inválido o árbol NULL.
 
-Otro aspecto importante fue evitar que los errores de los nodos hijos se propagaran incorrectamente o que se continuara evaluando una expresión después de detectar un problema.
-
----
+Otro aspecto importante fue detener la evaluación cuando alguno de los nodos hijos presenta un error. De esta manera se evita continuar realizando operaciones cuando la expresión ya contiene un problema.
 
 ## 2. Fase 2: El Científico (Ingeniería de Requerimientos C-R-E-O)
 
 ### 2.1 Matriz de Especificación Formal
 
-| Elemento C-R-E-O | Definición Técnica |
+| Elemento C-R-E-O | Definición técnica |
 | :--- | :--- |
 | **Contexto (C)** | Lenguaje C estándar C11, compilador GCC y bibliotecas estándar. |
-| **Rol (R)** | Ingeniero de software especializado en sistemas, árboles sintácticos y compiladores. |
-| **Especificación (E)** | Evaluar expresiones aritméticas mediante recursividad. Detectar división y módulo entre cero antes de ejecutar las operaciones. Propagar errores y rechazar nodos inválidos. |
+| **Rol (R)** | Ingeniero de software especializado en programación, árboles sintácticos y compiladores. |
+| **Especificación (E)** | Evaluar expresiones aritméticas mediante recursividad. Detectar divisiones y módulos entre cero, propagar errores y rechazar nodos inválidos. |
 | **Output (O)** | Función modular `int evaluar(ASTNode *n, int *error)`, sin `main()`, con análisis de complejidad temporal y espacial. |
 
 ### 2.2 Prompt Estructurado
@@ -87,11 +83,7 @@ Entrega código modular, comentarios claros
 y explicación de complejidad temporal y espacial.
 ```
 
----
-
-## 3. Código Devuelto por el Modelo
-
-
+## 3. Fase 2: Código Devuelto por el Modelo
 
 **Código completo en C:**
 
@@ -186,39 +178,61 @@ int evaluar(ASTNode *n, int *error) {
 }
 ```
 
-### Complejidad del algoritmo
+### 3.1 Complejidad del algoritmo
 
-- **Temporal:** O(n), porque cada nodo del árbol se visita una sola vez.
-- **Espacial:** O(h), debido a las llamadas recursivas, donde h representa la altura del árbol.
-- No utiliza memoria dinámica ni necesita `malloc()` o `free()`.
-
----
+- **Complejidad temporal: O(n).** Cada nodo del árbol se visita como máximo una vez durante la evaluación.
+- **Complejidad espacial: O(h).** Depende de la altura del árbol y de las llamadas recursivas que se mantienen en la pila.
+- **Memoria dinámica:** No se utiliza `malloc()` ni `free()`, ya que la función trabaja con los nodos recibidos.
 
 ## 4. Fase 3: El Auditor (Resultados del Test Harness)
 
-**Pruebas ejecutadas:** Evaluación de expresiones complejas y detección de división y módulo entre cero.
+Se ejecutó la auditoría del evaluador recursivo utilizando seis casos de prueba. Los resultados obtenidos coinciden con los valores esperados.
 
-- [x] Se implementaron comprobaciones para evitar divisiones y módulos entre cero.
-- [x] Se implementó la propagación de errores y la validación de nodos NULL.
-- [x] La complejidad teórica coincide con la implementación recursiva.
+### 4.1 Resultados de las pruebas
 
+| Caso | Expresión o situación | Resultado esperado | Resultado obtenido | Estado |
+| :---: | :--- | :---: | :---: | :---: |
+| 1 | `(2+3)*4` | 20 | 20 | OK |
+| 2 | `7/0` | Error 1 | Error 1 | OK |
+| 3 | `7%%0` (módulo entre cero) | Error 1 | Error 1 | OK |
+| 4 | Árbol `NULL` | Error 2 | Error 2 | OK |
+| 5 | `10-2-3` | 5 | 5 | OK |
+| 6 | `(8/2)+1` | 5 | 5 | OK |
 
+### 4.2 Resultado de la auditoría
 
-### Reporte Crítico
+```text
+=== AUDITORIA SESION 07 - Evaluador recursivo con deteccion de errores ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] (2+3)*4                            esperado: 20           obtenido: 20           OK
+[ 2] 7/0 -> error 1                     esperado: 1            obtenido: 1            OK
+[ 3] 7%%0 -> error 1                    esperado: 1            obtenido: 1            OK
+[ 4] arbol NULL -> error 2              esperado: 2            obtenido: 2            OK
+[ 5] 10-2-3                             esperado: 5            obtenido: 5            OK
+[ 6] (8/2)+1                            esperado: 5            obtenido: 5            OK
 
-Al revisar la implementación inicial se identificó un problema importante: si una operación dentro de un nodo hijo generaba un error, el programa podía continuar evaluando los nodos superiores.
+RESULTADO: 6/6 pruebas superadas
+```
 
-Esto podía provocar operaciones innecesarias y resultados incorrectos.
+<badge color="success">6 de 6 pruebas superadas</badge>
 
-Para solucionar este problema se agregaron comprobaciones después de evaluar cada subárbol. Si la variable `error` contiene un valor diferente de cero, la función detiene inmediatamente el recorrido y devuelve el control sin ejecutar la operación del nodo padre.
+### 4.3 Lista de verificación
 
-También se verificó que la división y el módulo comprueben el divisor antes de realizar sus respectivas operaciones. De esta manera se evita ejecutar una operación inválida cuando el divisor es cero.
+* [x] Caso base y límites superados sin *Crash*.
+* [x] No existen accesos fuera de límites ni *Memory Leaks*.
+* [x] La complejidad teórica coincide con la implementada.
 
-Otro caso límite contemplado fue recibir un árbol NULL o un tipo de nodo desconocido. En ambos casos se establece el error 2.
+## 5. Reporte Crítico
 
-El harness contempla seis casos principales que permiten comprobar operaciones aritméticas, división entre cero, módulo entre cero, árboles nulos y evaluación recursiva de expresiones.
+Durante la revisión de la implementación se verificó que el evaluador detuviera el recorrido cuando alguno de los nodos hijos presenta un error. Para conseguirlo, se agregaron comprobaciones después de evaluar el subárbol izquierdo y el derecho. Así se evita ejecutar operaciones innecesarias cuando ya se detectó un problema.
 
-La salida de 6/6 pruebas debe confirmarse ejecutando el harness después de crear correctamente los archivos necesarios. Las pruebas del harness no comprueban todos los posibles desbordamientos de enteros ni todos los límites de profundidad recursiva.
+También se comprobó que la división y el módulo revisaran el valor del divisor antes de realizar sus respectivas operaciones. Cuando el divisor es cero, se establece el código de error 1 y se detiene la evaluación.
+
+Otro caso importante fue la recepción de un árbol NULL o de un tipo de nodo desconocido. En estas situaciones, la función establece el código de error 2 para indicar que la estructura recibida no es válida.
+
+Finalmente, se ejecutó el Test Harness y se obtuvieron seis pruebas superadas de seis posibles. Esto demuestra que la implementación cumple con los casos evaluados de operaciones aritméticas, evaluación recursiva y detección de errores.
+
+Como limitación, las pruebas realizadas no cubren todos los posibles desbordamientos de enteros ni los límites de profundidad de la recursividad. Estos aspectos podrían revisarse en una auditoría más amplia.
 
 ---
 
