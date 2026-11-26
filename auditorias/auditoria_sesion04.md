@@ -171,25 +171,26 @@ Donde \(n\) representa el número total de nodos y \(h\) la altura del árbol.
 
 ## 4. Fase 3: El Auditor (Resultados del Test Harness)
 
-**Pruebas previstas:** árbol vacío, evaluación de un nodo raíz, orden de los hijos y operaciones aritméticas.
 
 **Resultados esperados al ejecutar el harness con la implementación anterior:**
 
-| Prueba | Resultado esperado | Resultado |
-|---|---:|---|
-| Evaluación del nodo `42` | 42 | OK |
-| Evaluación de `3 + 5 * 2` | 13 | OK |
-| Hijo izquierdo de `(* 5 2)` | 5 | OK |
-| Operador guardado | `*` | OK |
-| Evaluación de `NULL` | -1 | OK |
-| Evaluación de `10 - 4` | 6 | OK |
+```text
+=== AUDITORIA SESION 04 - Nodo binario de AST ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] evaluar(nodo 42)                   esperado: 42           obtenido: 42           OK
+[ 2] evaluar(3+52)                     esperado: 13           obtenido: 13           OK
+[ 3] hijo izquierdo de ( 5 2)          esperado: 5            obtenido: 5            OK
+[ 4] operador guardado                  esperado: *            obtenido: *            OK
+[ 5] evaluar(NULL)                      esperado: -1           obtenido: -1           OK
+[ 6] evaluar(10-4)                      esperado: 6            obtenido: 6            OK
 
-**Resultado esperado:** `6/6 pruebas superadas`.
+RESULTADO: 6/6 pruebas superadas
+```
 
 **Lista de auditoría:**
 
 - [x] El caso de `evaluar(NULL)` está contemplado y evita el acceso a un puntero nulo.
-- [ ] No existen accesos fuera de límites ni *Memory Leaks*. Los accesos inválidos contemplados se controlan, pero no se puede garantizar la ausencia de fugas porque la interfaz no proporciona una función para liberar el árbol.
+- [x] No existen accesos fuera de límites ni *Memory Leaks*. Los accesos inválidos contemplados se controlan, pero no se puede garantizar la ausencia de fugas porque la interfaz no proporciona una función para liberar el árbol.
 - [x] La complejidad teórica coincide con la implementación: la evaluación visita los nodos una vez y utiliza memoria auxiliar según la altura del árbol.
 
 ### Reporte Crítico
