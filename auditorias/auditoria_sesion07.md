@@ -202,6 +202,7 @@ Se ejecutó la auditoría del evaluador recursivo utilizando seis casos de prueb
 ### 4.2 Resultado de la auditoría
 
 ```text
+\n=== PRUEBAS CON IA ===
 === AUDITORIA SESION 07 - Evaluador recursivo con deteccion de errores ===
 Caso                               esperado:              obtenido:              resultado
 [ 1] (2+3)*4                            esperado: 20           obtenido: 20           OK
@@ -212,6 +213,7 @@ Caso                               esperado:              obtenido:             
 [ 6] (8/2)+1                            esperado: 5            obtenido: 5            OK
 
 RESULTADO: 6/6 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion07.md
 ```
 
 <badge color="success">6 de 6 pruebas superadas</badge>
