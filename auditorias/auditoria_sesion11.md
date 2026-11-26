@@ -109,6 +109,20 @@ int insertar_simbolo(Simbolo *tabla[], unsigned int cubetas,
 ---
 
 ## 4. Fase 3: El Auditor (Resultados del Test Harness)
+```text
+=== AUDITORIA SESION 10 - Mini-evaluador de expresiones (Hito 1) ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] hash_djb2("")                      esperado: 5381         obtenido: 5381         OK
+[ 2] hash_djb2("abc")                   esperado: 193485963    obtenido: 193485963    OK
+[ 3] insertar x dos veces               esperado: 0            obtenido: 0            OK
+[ 4] dos claves, una cubeta             esperado: 2            obtenido: 2            OK
+[ 5] offset de beta en cadena           esperado: 4            obtenido: 4            OK
+[ 6] insertar en tabla NULL             esperado: -1           obtenido: -1           OK
+
+RESULTADO: 6/6 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion11.md
+Los números entre corchetes son el contador de casos. Mientras algo falle verás FALLA en esa línea, el total será menor y el programa terminará con código de salida 1.
+```
 
 **Pruebas ejecutadas:** Manejo de claves duplicadas y colisiones.
 
