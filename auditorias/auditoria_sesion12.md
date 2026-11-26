@@ -96,6 +96,20 @@ int asignar_offset(Simbolo *simbolo, int cursor) {
 
 ## 4. Fase 3: El Auditor (Resultados del Test Harness)
 
+```text
+=== AUDITORIA SESION 12 - Registro de simbolo y offsets alineados ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] ancho_de_tipo("int")               esperado: 4            obtenido: 4            OK
+[ 2] ancho_de_tipo("double")            esperado: 8            obtenido: 8            OK
+[ 3] int en cursor 0                    esperado: 4            obtenido: 4            OK
+[ 4] char e int: offset de b            esperado: 4            obtenido: 4            OK
+[ 5] double desde cursor 4              esperado: 8            obtenido: 8            OK
+[ 6] registro NULL                      esperado: -1           obtenido: -1           OK
+
+RESULTADO: 6/6 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion12.md
+```
+
 **Pruebas ejecutadas:** Alineación de tipos y tamaños en bytes.
 
 - ☒ Caso base y límites evaluados sin Crash.
