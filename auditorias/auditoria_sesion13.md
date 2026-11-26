@@ -97,6 +97,21 @@ const char *buscar(const Ambito *ambito, const char *nombre) {
 
 ## 4. Fase 3: El Auditor (Resultados del Test Harness)
 
+```text
+=== AUDITORIA SESION 13 - Pila de ambitos y busqueda jerarquica ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] declarar(&g, "x")                  esperado: 1            obtenido: 1            OK
+[ 2] buscar en el mismo ambito          esperado: global       obtenido: global       OK
+[ 3] buscar subiendo al padre           esperado: global       obtenido: global       OK
+[ 4] shadowing en el hijo               esperado: bloque       obtenido: bloque       OK
+[ 5] tres niveles hasta la raiz         esperado: raiz         obtenido: raiz         OK
+[ 6] nombre no declarado                esperado: (nulo)       obtenido: (nulo)       OK
+
+RESULTADO: 6/6 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion13.md
+Los números entre corchetes son el contador de casos. Mientras algo falle verás FALLA en esa línea, el total será menor y el programa terminará con código de salida 1.
+```
+
 **Pruebas ejecutadas:** Búsqueda jerárquica de identificadores.
 
 - ☒ Caso base y límites evaluados sin Crash.
