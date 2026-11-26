@@ -173,6 +173,7 @@ Caso                               esperado:              obtenido:             
 [ 6] hay_perdida(INT,CHAR)              esperado: 0            obtenido: 0            OK
 
 RESULTADO: 6/6 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion08.md
 ```
 
 <badge color="success">6/6 pruebas superadas</badge>
