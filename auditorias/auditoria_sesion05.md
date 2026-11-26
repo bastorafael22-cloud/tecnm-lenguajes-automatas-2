@@ -140,7 +140,21 @@ void postorden(ASTNode *n, char *buf, int cap) {
 **Nota:** Este código corresponde al archivo `artesano_sesion05_c.c` y debe compilarse junto con `api_sesion05.h` y `harness_sesion05_c.c`.
 
 ## 4. Fase 3: El Auditor (Resultados del Test Harness)
+```text
+=== AUDITORIA SESION 05 - Recorrido postorden y RPN ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] hoja 42                            esperado: 42           obtenido: 42           OK
+[ 2] 3+(5*2)                            esperado: 3 5 2 * +    obtenido: 3 5 2 * +    OK
+[ 3] arbol NULL                         esperado:              obtenido:              OK
+[ 4] (1+2)*(3+4)
+     esperado: 1 2 + 3 4 + *
+     obtenido: 1 2 + 3 4 + *
+     -> OK
+[ 5] 8-3                                esperado: 8 3 -        obtenido: 8 3 -        OK
 
+RESULTADO: 5/5 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion05.md
+```
 *Pruebas ejecutadas:* Validación contra desbordamiento de pila
 
 - [x] Caso base y límites superados sin *Crash*.
