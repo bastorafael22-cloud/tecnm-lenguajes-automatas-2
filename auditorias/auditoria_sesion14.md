@@ -86,6 +86,19 @@ int usar(const Tabla *tabla, const char *nombre) {
 ---
 
 ## 4. Fase 3: El Auditor (Resultados del Test Harness)
+```text
+=== AUDITORIA SESION 14 - Declaracion previa y redeclaracion ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] usar sin declarar                  esperado: 0            obtenido: 0            OK
+[ 2] usar despues de declarar           esperado: 1            obtenido: 1            OK
+[ 3] redeclarar el mismo nombre         esperado: 0            obtenido: 0            OK
+[ 4] total tras redeclarar              esperado: 1            obtenido: 1            OK
+[ 5] prefijo no es el mismo nombre      esperado: 0            obtenido: 0            OK
+[ 6] declarar nombre vacio              esperado: -1           obtenido: -1           OK
+
+RESULTADO: 6/6 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion14.md
+```
 
 **Pruebas ejecutadas:** Uso antes de declarar y redeclaración.
 
